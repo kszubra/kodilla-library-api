@@ -1,5 +1,6 @@
 package com.kodilla.libraryapi.domain;
 
+import com.kodilla.libraryapi.enumerics.BookInstanceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,15 +8,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 @Entity
-@Table(name="BOOKS")
+@Table(name="BOOK_INSTANCES")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class BookInstance {
 
     @Id
     @NotNull
@@ -24,16 +24,15 @@ public class Book {
     private long id;
 
     @NotNull
-    @Column(name="TITLE")
-    private String title;
+    @Column(name="BOOK_ID")
+    private long bookId;
 
     @NotNull
-    @Column(name="AUTHOR")
-    private String author;
+    @Column(name="STATUS")
+    private BookInstanceStatus status;
 
     @NotNull
-    @Column(name="PUBLICATION_DATE")
-    private LocalDate publicationDate;
-
+    @Column(name="AVAILABLE_FOR_RENT")
+    private boolean isAvailableForRent;
 
 }

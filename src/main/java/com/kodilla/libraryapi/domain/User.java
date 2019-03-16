@@ -1,5 +1,6 @@
 package com.kodilla.libraryapi.domain;
 
+import com.kodilla.libraryapi.enumerics.Currency;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="BOOKS")
+@Table(name="USERS")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class User {
 
     @Id
     @NotNull
@@ -24,16 +25,22 @@ public class Book {
     private long id;
 
     @NotNull
-    @Column(name="TITLE")
-    private String title;
+    @Column(name="NAME")
+    private String name;
 
     @NotNull
-    @Column(name="AUTHOR")
-    private String author;
+    @Column(name="SURNAME")
+    private String surname;
 
     @NotNull
-    @Column(name="PUBLICATION_DATE")
-    private LocalDate publicationDate;
+    @Column(name="REGISTERED")
+    private LocalDate registrationDate;
 
+    @NotNull
+    @Column(name="CURRENCY")
+    private Currency prefferedCurrency;
 
+    @NotNull
+    @Column(name="IS_ADMIN")
+    private boolean hasAdminRights;
 }

@@ -10,12 +10,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="BOOKS")
+@Table(name="RENTS")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class Rent {
 
     @Id
     @NotNull
@@ -24,16 +24,28 @@ public class Book {
     private long id;
 
     @NotNull
-    @Column(name="TITLE")
-    private String title;
+    @Column(name="USER_ID")
+    private long userId;
 
     @NotNull
-    @Column(name="AUTHOR")
-    private String author;
+    @Column(name="BOOK_INSTANCE_ID")
+    private long bookInstanceId;
 
     @NotNull
-    @Column(name="PUBLICATION_DATE")
-    private LocalDate publicationDate;
+    @Column(name="RENT_DATE")
+    private LocalDate rentDate;
+
+    @NotNull
+    @Column(name="RETURN_DEADLINE")
+    private LocalDate returnDeadline;
+
+    @Column(name="FINE_ID")
+    private long fineId;
+
+    @NotNull
+    @Column(name="IS_RETURNED")
+    private boolean isReturned;
+
 
 
 }

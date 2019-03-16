@@ -7,33 +7,31 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 @Entity
-@Table(name="BOOKS")
+@Table(name="FINES")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class Fine {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="ID")
     private long id;
 
     @NotNull
-    @Column(name="TITLE")
-    private String title;
+    @Column(name="RENT_ID")
+    private long rentId;
 
     @NotNull
-    @Column(name="AUTHOR")
-    private String author;
+    @Column(name="VALUE")
+    private double value;
 
     @NotNull
-    @Column(name="PUBLICATION_DATE")
-    private LocalDate publicationDate;
-
+    @Column(name="IS_PAID")
+    private boolean isPaid;
 
 }
