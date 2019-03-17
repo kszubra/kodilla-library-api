@@ -1,4 +1,4 @@
 package com.kodilla.libraryapi.repository;
 
-public interface BookInstanceRepository {
+public interface BookCopyRepository {
 }

@@ -3,7 +3,7 @@ package com.kodilla.libraryapi.enumerics;
 import lombok.Getter;
 
 @Getter
-public enum BookInstanceStatus {
+public enum BookCopyStatus {
 
     IN_USE("in use"),
     DESTROYED("destroyed"),
@@ -11,7 +11,7 @@ public enum BookInstanceStatus {
     IN_RENOVATION("in renovation");
 
     private String description;
-    BookInstanceStatus(String description) {this.description = description;}
+    BookCopyStatus(String description) {this.description = description;}
     @Override
     public String toString() {
         return this.getDescription();

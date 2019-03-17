@@ -28,8 +28,8 @@ public class Rent {
     private long userId;
 
     @NotNull
-    @Column(name="BOOK_INSTANCE_ID")
-    private long bookInstanceId;
+    @Column(name="BOOK_COPY_ID")
+    private long bookCopyId;
 
     @NotNull
     @Column(name="RENT_DATE")

@@ -1,4 +1,4 @@
 package com.kodilla.libraryapi.mapper;
 
-public class BookInstanceMapper {
+public class BookCopyMapper {
 }

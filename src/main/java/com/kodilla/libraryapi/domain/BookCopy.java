@@ -1,6 +1,6 @@
 package com.kodilla.libraryapi.domain;
 
-import com.kodilla.libraryapi.enumerics.BookInstanceStatus;
+import com.kodilla.libraryapi.enumerics.BookCopyStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +10,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="BOOK_INSTANCES")
+@Table(name="BOOK_COPIES")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookInstance {
+public class BookCopy {
 
     @Id
     @NotNull
@@ -29,7 +29,7 @@ public class BookInstance {
 
     @NotNull
     @Column(name="STATUS")
-    private BookInstanceStatus status;
+    private BookCopyStatus status;
 
     @NotNull
     @Column(name="AVAILABLE_FOR_RENT")
