@@ -24,8 +24,9 @@ public class BookCopy {
     private long id;
 
     @NotNull
-    @Column(name="BOOK_ID")
-    private long bookId;
+    @ManyToOne
+    @JoinColumn(name = "BOOK_ID")
+    private Book book;
 
     @NotNull
     @Column(name="STATUS")

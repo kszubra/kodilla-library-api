@@ -24,12 +24,14 @@ public class Rent {
     private long id;
 
     @NotNull
-    @Column(name="USER_ID")
-    private long userId;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @NotNull
-    @Column(name="BOOK_COPY_ID")
-    private long bookCopyId;
+    @ManyToOne
+    @JoinColumn(name="BOOK_COPY_ID")
+    private BookCopy bookCopy;
 
     @NotNull
     @Column(name="RENT_DATE")
@@ -39,8 +41,9 @@ public class Rent {
     @Column(name="RETURN_DEADLINE")
     private LocalDate returnDeadline;
 
-    @Column(name="FINE_ID")
-    private long fineId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="FINE_ID")
+    private Fine fine;
 
     @NotNull
     @Column(name="IS_RETURNED")

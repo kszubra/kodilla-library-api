@@ -23,8 +23,9 @@ public class Fine {
     private long id;
 
     @NotNull
-    @Column(name="RENT_ID")
-    private long rentId;
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
+    private User user;
 
     @NotNull
     @Column(name="VALUE")
