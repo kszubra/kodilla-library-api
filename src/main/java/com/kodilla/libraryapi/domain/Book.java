@@ -9,6 +9,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@NamedQueries({
+        @NamedQuery(
+                name= "Book.getBookByTitle",
+                query= "FROM Book WHERE title = :TITLE"
+        )
+
+})
+
 @Entity
 @Table(name="BOOKS")
 @Getter
@@ -24,7 +32,7 @@ public class Book {
     private long id;
 
     @NotNull
-    @Column(name="TITLE")
+    @Column(name="TITLE", unique = true)
     private String title;
 
     @NotNull
