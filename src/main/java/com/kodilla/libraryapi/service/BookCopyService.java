@@ -34,5 +34,17 @@ public class BookCopyService {
                 .collect(Collectors.toList());
     }
 
+    public BookCopy setAsRented(final long id) {
+        BookCopy copy = bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
+        copy.setAvailableForRent(false);
+        return bookCopyRepository.save(copy);
+    }
+
+    public BookCopy setAsReturned(final long id) {
+        BookCopy copy = bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
+        copy.setAvailableForRent(true);
+        return bookCopyRepository.save(copy);
+    }
+
 
 }
