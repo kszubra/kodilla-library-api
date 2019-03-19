@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Rent {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)

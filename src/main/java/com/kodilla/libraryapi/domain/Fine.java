@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fine {
+    public final static double FINE_PER_DAY = 1.50;
 
     @Id
     @NotNull
