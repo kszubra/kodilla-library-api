@@ -2,6 +2,7 @@ package com.kodilla.libraryapi.service;
 
 import com.kodilla.libraryapi.domain.User;
 import com.kodilla.libraryapi.enumerics.Currency;
+import com.kodilla.libraryapi.exceptions.UserNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +27,7 @@ public class UserServiceTest {
         testUser.setName("John");
         testUser.setSurname("Rambo");
         testUser.setHasAdminRights(false);
-        testUser.setPrefferedCurrency(Currency.PLN);
+        testUser.setPrefferedCurrency("PLN");
         testUser.setRegistrationDate(LocalDate.now());
 
         //When
@@ -36,8 +37,16 @@ public class UserServiceTest {
 
         //Then
         Assert.assertTrue(loadedUser.getName().equals("John"));
+    }
 
+    @Transactional
+    @Test(expected = UserNotFoundException.class)
+    public void testGettingUserByIdException() {
+        //Given
+        long userId = 1L;
 
+        //When & Then
+        User loadedUser = userService.getUserById(userId);
     }
 
 }

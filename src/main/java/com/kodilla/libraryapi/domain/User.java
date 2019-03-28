@@ -38,7 +38,7 @@ public class User {
 
     @NotNull
     @Column(name="CURRENCY")
-    private Currency prefferedCurrency;
+    private String prefferedCurrency;
 
     @NotNull
     @Column(name="IS_ADMIN")

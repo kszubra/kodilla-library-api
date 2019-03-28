@@ -30,7 +30,7 @@ public class BookCopy {
 
     @NotNull
     @Column(name="STATUS")
-    private BookCopyStatus status;
+    private String status;
 
     @NotNull
     @Column(name="AVAILABLE_FOR_RENT")

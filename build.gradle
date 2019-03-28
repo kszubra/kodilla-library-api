@@ -28,6 +28,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     
+    //GOOGLE GSON
+    compile('com.google.code.gson:gson:2.8.2')
+    
+    //ACTUATOR
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    
     //LOMBOK
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
