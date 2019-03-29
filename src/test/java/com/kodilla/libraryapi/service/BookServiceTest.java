@@ -54,7 +54,6 @@ public class BookServiceTest {
     @Test
     public void testGetBookByNonExistingTitle() {
         //Given & When
-        bookService.deleteAllBooks();
         String title = "Example";
 
         //When
