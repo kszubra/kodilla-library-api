@@ -4,7 +4,8 @@ import com.kodilla.libraryapi.domain.Book;
 import com.kodilla.libraryapi.domain.BookCopy;
 import com.kodilla.libraryapi.domain.Rent;
 import com.kodilla.libraryapi.domain.User;
-import com.kodilla.libraryapi.exceptions.RentNotFoundException;
+import com.kodilla.libraryapi.exceptions.rent.CopyAlreadyRentedException;
+import com.kodilla.libraryapi.exceptions.rent.RentNotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -149,7 +150,7 @@ public class RentServiceTest {
 
         BookCopy testCopy = new BookCopy();
         testCopy.setBook(testBook);
-        testCopy.setAvailableForRent(false);
+        testCopy.setAvailableForRent(true);
         testCopy.setStatus("In use");
         bookCopyService.addBookCopy(testCopy);
 
@@ -188,8 +189,54 @@ public class RentServiceTest {
         Rent result = rentService.getRentById(id);
     }
 
-    @Test
+    @Test(expected = CopyAlreadyRentedException.class)
     public void testAddingRentForAlreadyRentedCopy() {
         //Given
+        //Given
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
+        testBook.setAuthor("Tolkien");
+        testBook.setTitle("LOTR");
+        bookService.addBook(testBook);
+
+        BookCopy testCopy = new BookCopy();
+        testCopy.setBook(testBook);
+        testCopy.setAvailableForRent(true);
+        testCopy.setStatus("In use");
+        bookCopyService.addBookCopy(testCopy);
+
+        User testUser = new User();
+        testUser.setName("John");
+        testUser.setSurname("Rambo");
+        testUser.setHasAdminRights(false);
+        testUser.setPrefferedCurrency("PLN");
+        testUser.setRegistrationDate(LocalDate.now());
+        userService.addUser(testUser);
+
+        User testUserTwo = new User();
+        testUserTwo.setName("John");
+        testUserTwo.setSurname("Rambo");
+        testUserTwo.setHasAdminRights(false);
+        testUserTwo.setPrefferedCurrency("PLN");
+        testUserTwo.setRegistrationDate(LocalDate.now());
+        userService.addUser(testUserTwo);
+
+        Rent testRent = new Rent();
+        testRent.setUser(testUser);
+        testRent.setBookCopy(testCopy);
+        testRent.setRentDate(LocalDate.now());
+        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRent);
+
+        //When
+        /**
+         * Tries to create new rent for already rented book copy
+         */
+        Rent testRentToFail = new Rent();
+        testRentToFail.setUser(testUserTwo);
+        testRentToFail.setBookCopy(testCopy);
+        testRentToFail.setRentDate(LocalDate.now());
+        testRentToFail.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRentToFail);
     }
 }

@@ -1,7 +1,8 @@
 package com.kodilla.libraryapi.service;
 
 import com.kodilla.libraryapi.domain.Rent;
-import com.kodilla.libraryapi.exceptions.RentNotFoundException;
+import com.kodilla.libraryapi.exceptions.rent.CopyAlreadyRentedException;
+import com.kodilla.libraryapi.exceptions.rent.RentNotFoundException;
 import com.kodilla.libraryapi.repository.RentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,14 @@ public class RentService {
     @Autowired
     private BookCopyService bookCopyService;
 
+    @Transactional
     public Rent addRent(final Rent rent) {
-        return rentRepository.save(rent);
+        if( rent.getBookCopy().isAvailableForRent() ) {
+            rent.getBookCopy().setAvailableForRent(false);
+            return rentRepository.save(rent);
+        } else {
+            throw new CopyAlreadyRentedException();
+        }
     }
 
     public Rent getRentById(final long id) {
