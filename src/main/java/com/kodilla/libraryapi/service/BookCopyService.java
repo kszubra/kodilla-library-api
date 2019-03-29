@@ -5,6 +5,7 @@ import com.kodilla.libraryapi.exceptions.BookCopyNotFoundException;
 import com.kodilla.libraryapi.repository.BookCopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,16 +35,20 @@ public class BookCopyService {
                 .collect(Collectors.toList());
     }
 
-    public BookCopy setAsRented(final long id) {
+    @Transactional
+    public void setAsRented(final long id) {
         BookCopy copy = bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
         copy.setAvailableForRent(false);
-        return bookCopyRepository.save(copy);
     }
 
-    public BookCopy setAsReturned(final long id) {
+    @Transactional
+    public void setAsReturned(final long id) {
         BookCopy copy = bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
         copy.setAvailableForRent(true);
-        return bookCopyRepository.save(copy);
+    }
+
+    public void deleteAllBookCopies() {
+        bookCopyRepository.deleteAll();
     }
 
 

@@ -41,11 +41,14 @@ public class BookCopy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookCopy bookCopy = (BookCopy) o;
-        return id == bookCopy.id;
+        return id == bookCopy.id &&
+                isAvailableForRent == bookCopy.isAvailableForRent &&
+                Objects.equals(book, bookCopy.book) &&
+                Objects.equals(status, bookCopy.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, book, status, isAvailableForRent);
     }
 }
