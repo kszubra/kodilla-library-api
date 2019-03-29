@@ -8,10 +8,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery(
-                name= "Book.getBookByTitle",
+                name= "Book.getBooksByTitle",
                 query= "FROM Book WHERE title = :TITLE"
         )
 
@@ -32,7 +33,7 @@ public class Book {
     private long id;
 
     @NotNull
-    @Column(name="TITLE", unique = true)
+    @Column(name="TITLE")
     private String title;
 
     @NotNull
@@ -43,5 +44,19 @@ public class Book {
     @Column(name="PUBLICATION_DATE")
     private LocalDate publicationDate;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(publicationDate, book.publicationDate);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, author, publicationDate);
+    }
 }

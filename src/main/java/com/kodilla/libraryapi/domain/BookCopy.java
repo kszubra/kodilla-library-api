@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name="BOOK_COPIES")
@@ -36,4 +37,16 @@ public class BookCopy {
     @Column(name="AVAILABLE_FOR_RENT")
     private boolean isAvailableForRent;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookCopy bookCopy = (BookCopy) o;
+        return id == bookCopy.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

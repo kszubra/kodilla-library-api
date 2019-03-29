@@ -32,13 +32,11 @@ public class RentServiceTest {
     private User testUser;
     private Book testBook;
     private BookCopy testBookCopy;
-    private Rent testRent;
 
     private void prepareTestObjects() {
         testUser = new User();
         testBook = new Book();
         testBookCopy = new BookCopy();
-        testRent = new Rent();
 
         testBook.setAuthor("Tolkien");
         testBook.setTitle("LOTR");
@@ -57,16 +55,17 @@ public class RentServiceTest {
         testBookCopy.setStatus("in use");
         bookCopyService.addBookCopy(testBookCopy);
 
-        testRent.setBookCopy(testBookCopy);
-        testRent.setUser(testUser);
-        testRent.setRentDate(LocalDate.now());
-        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
     }
 
     @Test
     public void testGetRentById() {
         //Given
         prepareTestObjects();
+        Rent testRent = new Rent();
+        testRent.setBookCopy(testBookCopy);
+        testRent.setUser(testUser);
+        testRent.setRentDate(LocalDate.now());
+        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
 
         //When
         rentService.addRent(testRent);
@@ -80,6 +79,19 @@ public class RentServiceTest {
     @Test
     public void testGetAllRents() {
         //Given
+        prepareTestObjects();
+        Rent testRent1 = new Rent();
+        testRent1.setBookCopy(testBookCopy);
+        testRent1.setUser(testUser);
+        testRent1.setRentDate(LocalDate.now());
+        testRent1.setReturnDeadline(LocalDate.now().plusDays(30));
+        Rent testRent2 = new Rent();
+        testRent2.setBookCopy(testBookCopy);
+        testRent2.setUser(testUser);
+        testRent2.setRentDate(LocalDate.now());
+        testRent2.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRent1);
+        rentService.addRent(testRent2);
 
         //When
 

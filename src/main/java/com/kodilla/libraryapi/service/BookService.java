@@ -1,7 +1,8 @@
 package com.kodilla.libraryapi.service;
 
 import com.kodilla.libraryapi.domain.Book;
-import com.kodilla.libraryapi.exceptions.BookNotFoundException;
+import com.kodilla.libraryapi.exceptions.book.BookAlreadyExistsException;
+import com.kodilla.libraryapi.exceptions.book.BookNotFoundException;
 import com.kodilla.libraryapi.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,12 +30,16 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public Book getBookByTitle(final String title) {
-        return bookRepository.getBookByTitle(title).orElseThrow(BookNotFoundException::new);
+    public List<Book> getBooksByTitle(final String title) {
+        return bookRepository.getBooksByTitle(title);
     }
 
     public long getBooksAmount() {
         return bookRepository.count();
+    }
+
+    public void deleteAllBooks() {
+        bookRepository.deleteAll();
     }
 
 
