@@ -54,7 +54,13 @@ public class Rent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rent rent = (Rent) o;
-        return id == rent.id;
+        return id == rent.id &&
+                isReturned == rent.isReturned &&
+                Objects.equals(user, rent.user) &&
+                Objects.equals(bookCopy, rent.bookCopy) &&
+                Objects.equals(rentDate, rent.rentDate) &&
+                Objects.equals(returnDeadline, rent.returnDeadline) &&
+                Objects.equals(fine, rent.fine);
     }
 
     @Override

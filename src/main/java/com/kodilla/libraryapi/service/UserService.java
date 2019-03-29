@@ -18,4 +18,8 @@ public class UserService {
     public User getUserById(final long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
+
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
 }

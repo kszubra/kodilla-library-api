@@ -4,14 +4,18 @@ import com.kodilla.libraryapi.domain.Book;
 import com.kodilla.libraryapi.domain.BookCopy;
 import com.kodilla.libraryapi.domain.Rent;
 import com.kodilla.libraryapi.domain.User;
+import com.kodilla.libraryapi.exceptions.RentNotFoundException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,16 +33,31 @@ public class RentServiceTest {
     private Book testBook;
     private BookCopy testBookCopy;
 
-    private void prepareTestObjects() {
-        testUser = new User();
-        testBook = new Book();
-        testBookCopy = new BookCopy();
+    @Before
+    public void cleanup() {
+        bookService.deleteAllBooks();
+        bookCopyService.deleteAllBookCopies();
+        userService.deleteAllUsers();
+        rentService.deleteAllRents();
+    }
 
+    @Transactional
+    @Test
+    public void testGetRentById() {
+        //Given
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
         testBook.setAuthor("Tolkien");
         testBook.setTitle("LOTR");
-        testBook.setPublicationDate(LocalDate.of(1973, 12, 8));
         bookService.addBook(testBook);
 
+        BookCopy testCopy = new BookCopy();
+        testCopy.setBook(testBook);
+        testCopy.setAvailableForRent(true);
+        testCopy.setStatus("In use");
+        bookCopyService.addBookCopy(testCopy);
+
+        User testUser = new User();
         testUser.setName("John");
         testUser.setSurname("Rambo");
         testUser.setHasAdminRights(false);
@@ -46,61 +65,131 @@ public class RentServiceTest {
         testUser.setRegistrationDate(LocalDate.now());
         userService.addUser(testUser);
 
-        testBookCopy.setBook(testBook);
-        testBookCopy.setAvailableForRent(true);
-        testBookCopy.setStatus("in use");
-        bookCopyService.addBookCopy(testBookCopy);
-
-    }
-
-    @Test
-    public void testGetRentById() {
-        //Given
-        prepareTestObjects();
         Rent testRent = new Rent();
-        testRent.setBookCopy(testBookCopy);
         testRent.setUser(testUser);
+        testRent.setBookCopy(testCopy);
         testRent.setRentDate(LocalDate.now());
         testRent.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRent);
 
         //When
-        rentService.addRent(testRent);
-        long rentId = testRent.getId();
-        Rent receivedRent = rentService.getRentById(rentId);
+        long id = testRent.getId();
+        Rent result = rentService.getRentById(id);
 
         //Then
-        Assert.assertEquals(testRent, receivedRent);
+        Assert.assertEquals(testRent, result);
+
     }
 
+    @Transactional
     @Test
     public void testGetAllRents() {
         //Given
-        prepareTestObjects();
-        Rent testRent1 = new Rent();
-        testRent1.setBookCopy(testBookCopy);
-        testRent1.setUser(testUser);
-        testRent1.setRentDate(LocalDate.now());
-        testRent1.setReturnDeadline(LocalDate.now().plusDays(30));
-        Rent testRent2 = new Rent();
-        testRent2.setBookCopy(testBookCopy);
-        testRent2.setUser(testUser);
-        testRent2.setRentDate(LocalDate.now());
-        testRent2.setReturnDeadline(LocalDate.now().plusDays(30));
-        rentService.addRent(testRent1);
-        rentService.addRent(testRent2);
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
+        testBook.setAuthor("Tolkien");
+        testBook.setTitle("LOTR");
+        bookService.addBook(testBook);
+        Book testBookTwo = new Book();
+        testBookTwo.setPublicationDate(LocalDate.now());
+        testBookTwo.setAuthor("Sapkowski");
+        testBookTwo.setTitle("Wiedzmin");
+        bookService.addBook(testBookTwo);
+
+        BookCopy testCopy = new BookCopy();
+        testCopy.setBook(testBook);
+        testCopy.setAvailableForRent(true);
+        testCopy.setStatus("In use");
+        bookCopyService.addBookCopy(testCopy);
+        BookCopy testCopyTwo = new BookCopy();
+        testCopyTwo.setBook(testBookTwo);
+        testCopyTwo.setAvailableForRent(true);
+        testCopyTwo.setStatus("In use");
+        bookCopyService.addBookCopy(testCopyTwo);
+
+        User testUser = new User();
+        testUser.setName("John");
+        testUser.setSurname("Rambo");
+        testUser.setHasAdminRights(false);
+        testUser.setPrefferedCurrency("PLN");
+        testUser.setRegistrationDate(LocalDate.now());
+        userService.addUser(testUser);
+
+        Rent testRent = new Rent();
+        testRent.setUser(testUser);
+        testRent.setBookCopy(testCopy);
+        testRent.setRentDate(LocalDate.now());
+        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRent);
+        Rent testRentTwo = new Rent();
+        testRentTwo.setUser(testUser);
+        testRentTwo.setBookCopy(testCopyTwo);
+        testRentTwo.setRentDate(LocalDate.now());
+        testRentTwo.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRentTwo);
 
         //When
+        List<Rent> result = rentService.getAllRents();
 
         //Then
-
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(testRent, result.get(0));
+        Assert.assertEquals(testRentTwo, result.get(1));
     }
 
+    @Transactional
     @Test
     public void testSetRentAsReturned() {
         //Given
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
+        testBook.setAuthor("Tolkien");
+        testBook.setTitle("LOTR");
+        bookService.addBook(testBook);
+
+        BookCopy testCopy = new BookCopy();
+        testCopy.setBook(testBook);
+        testCopy.setAvailableForRent(false);
+        testCopy.setStatus("In use");
+        bookCopyService.addBookCopy(testCopy);
+
+        User testUser = new User();
+        testUser.setName("John");
+        testUser.setSurname("Rambo");
+        testUser.setHasAdminRights(false);
+        testUser.setPrefferedCurrency("PLN");
+        testUser.setRegistrationDate(LocalDate.now());
+        userService.addUser(testUser);
+
+        Rent testRent = new Rent();
+        testRent.setUser(testUser);
+        testRent.setBookCopy(testCopy);
+        testRent.setRentDate(LocalDate.now());
+        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRent);
+        long id = testRent.getId();
 
         //When
+        rentService.setRentAsReturned(id);
+        Rent resultRent = rentService.getRentById(id);
+        BookCopy copyFromRent = resultRent.getBookCopy();
 
         //Then
+        Assert.assertTrue(resultRent.isReturned());
+        Assert.assertTrue(copyFromRent.isAvailableForRent());
+    }
+
+    @Test(expected = RentNotFoundException.class)
+    public void testGettingRentByNonExistingId() {
+        //Given & When
+        long id = 1L;
+
+        //Then
+        Rent result = rentService.getRentById(id);
+    }
+
+    @Test
+    public void testAddingRentForAlreadyRentedCopy() {
+        //Given
     }
 }

@@ -5,6 +5,7 @@ import com.kodilla.libraryapi.exceptions.RentNotFoundException;
 import com.kodilla.libraryapi.repository.RentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public class RentService {
     @Autowired
     private RentRepository rentRepository;
+    @Autowired
+    private BookCopyService bookCopyService;
 
     public Rent addRent(final Rent rent) {
         return rentRepository.save(rent);
@@ -25,10 +28,14 @@ public class RentService {
         return rentRepository.findAll();
     }
 
-    public Rent setRentAsReturned(final long id) {
+    @Transactional
+    public void setRentAsReturned(final long id) {
         Rent rent = rentRepository.findById(id).orElseThrow(RentNotFoundException::new);
         rent.setReturned(true);
+        bookCopyService.setAsReturned(rent.getBookCopy().getId());
+    }
 
-        return rentRepository.save(rent);
+    public void deleteAllRents() {
+        rentRepository.deleteAll();
     }
 }

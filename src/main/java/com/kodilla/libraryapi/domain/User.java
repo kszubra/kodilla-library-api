@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name="USERS")
@@ -42,4 +43,22 @@ public class User {
     @NotNull
     @Column(name="IS_ADMIN")
     private boolean hasAdminRights;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                hasAdminRights == user.hasAdminRights &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname) &&
+                Objects.equals(registrationDate, user.registrationDate) &&
+                Objects.equals(prefferedCurrency, user.prefferedCurrency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, registrationDate, prefferedCurrency, hasAdminRights);
+    }
 }
