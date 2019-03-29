@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,4 +24,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     @Query
     List<Book> getBooksByTitle(@Param("TITLE") String title);
+
+    Boolean existsByAuthorAndTitleAndPublicationDate(String author, String title, LocalDate publicationDate);
 }

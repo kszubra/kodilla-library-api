@@ -15,6 +15,13 @@ public class BookService {
     private BookRepository bookRepository;
 
     public Book addBook(final Book book) {
+        if(bookRepository.existsByAuthorAndTitleAndPublicationDate(
+                book.getAuthor(),
+                book.getTitle(),
+                book.getPublicationDate()
+        )) {
+            throw new BookAlreadyExistsException();
+        }
         return bookRepository.save(book);
     }
 

@@ -1,6 +1,7 @@
 package com.kodilla.libraryapi.service;
 
 import com.kodilla.libraryapi.domain.Book;
+import com.kodilla.libraryapi.exceptions.book.BookAlreadyExistsException;
 import com.kodilla.libraryapi.exceptions.book.BookNotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,8 +52,23 @@ public class BookServiceTest {
         Book receivedBook = bookService.getBookById(id);
     }
 
+    @Test(expected = BookAlreadyExistsException.class)
+    public void testAddingDuplicateBook() {
+        //Given
+        Book testBook1 = new Book();
+        testBook1.setPublicationDate(LocalDate.now());
+        testBook1.setAuthor("Tolkien");
+        testBook1.setTitle("LOTR");
+        Book testBook2 = new Book();
+        testBook2.setPublicationDate(LocalDate.now());
+        testBook2.setAuthor("Tolkien");
+        testBook2.setTitle("LOTR");
+        bookService.addBook(testBook1);
+        bookService.addBook(testBook2);
+    }
+
     @Test
-    public void testGetBookByNonExistingTitle() {
+    public void testGetBooksByNonExistingTitle() {
         //Given & When
         String title = "Example";
 
