@@ -1,7 +1,6 @@
 package com.kodilla.libraryapi.service;
 
 import com.kodilla.libraryapi.domain.User;
-import com.kodilla.libraryapi.enumerics.Currency;
 import com.kodilla.libraryapi.exceptions.UserNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;

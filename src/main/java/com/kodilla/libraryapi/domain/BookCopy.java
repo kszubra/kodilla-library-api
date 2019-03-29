@@ -1,6 +1,5 @@
 package com.kodilla.libraryapi.domain;
 
-import com.kodilla.libraryapi.enumerics.BookCopyStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
