@@ -25,8 +25,8 @@ public class RentReturnCheckScheduler {
     public void updateFines() {
 
         List<Rent> outdatedRents = rentService.getAllRents().stream()
-                .filter(e -> !e.isReturned() )
                 .filter(e -> isOutdated(e))
+                .filter(e -> !e.isReturned() )
                 .collect(Collectors.toList());
 
         for (Rent rent: outdatedRents) {
