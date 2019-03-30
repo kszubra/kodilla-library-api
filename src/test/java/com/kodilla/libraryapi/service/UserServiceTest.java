@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -23,6 +24,7 @@ public class UserServiceTest {
         userService.deleteAllUsers();
     }
 
+    @Transactional
     @Test
     public void testGettingUserById() {
         //Given
@@ -42,6 +44,7 @@ public class UserServiceTest {
         Assert.assertTrue(loadedUser.getName().equals("John"));
     }
 
+    @Transactional
     @Test(expected = UserNotFoundException.class)
     public void testGettingUserByIdException() {
         //Given

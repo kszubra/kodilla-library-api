@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,6 +26,7 @@ public class BookServiceTest {
         bookService.deleteAllBooks();
     }
 
+    @Transactional
     @Test
     public void testGetBookById() {
         //Given
@@ -43,6 +45,7 @@ public class BookServiceTest {
     }
 
 
+    @Transactional
     @Test(expected = BookNotFoundException.class)
     public void testGetBookByNonExistingId() {
         //Given & When
@@ -52,6 +55,7 @@ public class BookServiceTest {
         Book receivedBook = bookService.getBookById(id);
     }
 
+    @Transactional
     @Test(expected = BookAlreadyExistsException.class)
     public void testAddingDuplicateBook() {
         //Given
@@ -67,6 +71,7 @@ public class BookServiceTest {
         bookService.addBook(testBook2);
     }
 
+    @Transactional
     @Test
     public void testGetBooksByNonExistingTitle() {
         //Given & When
@@ -79,6 +84,7 @@ public class BookServiceTest {
         Assert.assertTrue(receivedBook.isEmpty());
     }
 
+    @Transactional
     @Test
     public void testGetAllBooks() {
         //Given
@@ -101,6 +107,7 @@ public class BookServiceTest {
         Assert.assertEquals(testBook2, receivedBooks.get(1));
     }
 
+    @Transactional
     @Test
     public void testDeleteBookById() {
         //Given
@@ -125,6 +132,7 @@ public class BookServiceTest {
         Assert.assertFalse(books.contains(testBook2));
     }
 
+    @Transactional
     @Test
     public void testGetBookByTitle() {
         //Given
@@ -154,8 +162,7 @@ public class BookServiceTest {
         Assert.assertFalse(books.contains(testBook3));
     }
 
-
-
+    @Transactional
     @Test
     public void testGetBooksAmount() {
         //Given

@@ -30,10 +30,6 @@ public class RentServiceTest {
     @Autowired
     private BookCopyService bookCopyService;
 
-    private User testUser;
-    private Book testBook;
-    private BookCopy testBookCopy;
-
     @Before
     public void cleanup() {
         bookService.deleteAllBooks();
@@ -180,6 +176,7 @@ public class RentServiceTest {
         Assert.assertTrue(copyFromRent.isAvailableForRent());
     }
 
+    @Transactional
     @Test(expected = RentNotFoundException.class)
     public void testGettingRentByNonExistingId() {
         //Given & When
@@ -189,6 +186,7 @@ public class RentServiceTest {
         Rent result = rentService.getRentById(id);
     }
 
+    @Transactional
     @Test(expected = CopyAlreadyRentedException.class)
     public void testAddingRentForAlreadyRentedCopy() {
         //Given
