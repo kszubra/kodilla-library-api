@@ -38,7 +38,6 @@ public class RentServiceTest {
         rentService.deleteAllRents();
     }
 
-    @Transactional
     @Test
     public void testGetRentById() {
         //Given
@@ -78,7 +77,6 @@ public class RentServiceTest {
 
     }
 
-    @Transactional
     @Test
     public void testGetAllRents() {
         //Given
@@ -134,7 +132,6 @@ public class RentServiceTest {
         Assert.assertEquals(testRentTwo, result.get(1));
     }
 
-    @Transactional
     @Test
     public void testSetRentAsReturned() {
         //Given
@@ -176,7 +173,6 @@ public class RentServiceTest {
         Assert.assertTrue(copyFromRent.isAvailableForRent());
     }
 
-    @Transactional
     @Test(expected = RentNotFoundException.class)
     public void testGettingRentByNonExistingId() {
         //Given & When
@@ -186,7 +182,6 @@ public class RentServiceTest {
         Rent result = rentService.getRentById(id);
     }
 
-    @Transactional
     @Test(expected = CopyAlreadyRentedException.class)
     public void testAddingRentForAlreadyRentedCopy() {
         //Given

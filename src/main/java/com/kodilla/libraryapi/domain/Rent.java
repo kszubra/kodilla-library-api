@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,7 @@ public class Rent {
     @NotNull
     @ManyToOne
     @JoinColumn(name="BOOK_COPY_ID")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private BookCopy bookCopy;
 
     @NotNull
