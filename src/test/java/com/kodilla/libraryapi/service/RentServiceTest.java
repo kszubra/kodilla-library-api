@@ -32,10 +32,10 @@ public class RentServiceTest {
 
     @Before
     public void cleanup() {
-        bookService.deleteAllBooks();
-        bookCopyService.deleteAllBookCopies();
-        userService.deleteAllUsers();
         rentService.deleteAllRents();
+        bookCopyService.deleteAllBookCopies();
+        bookService.deleteAllBooks();
+        userService.deleteAllUsers();
     }
 
     @Test

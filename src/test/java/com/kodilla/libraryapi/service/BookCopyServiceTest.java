@@ -10,12 +10,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,7 +28,6 @@ public class BookCopyServiceTest {
         bookService.deleteAllBooks();
     }
 
-    @Transactional
     @Test
     public void testGetBookCopyById() {
         //Given
@@ -57,7 +53,6 @@ public class BookCopyServiceTest {
         Assert.assertEquals("LOTR", receivedCopy.getBook().getTitle());
     }
 
-    @Transactional
     @Test
     public void testGetCopiesByBookId() {
         //Given
@@ -94,7 +89,6 @@ public class BookCopyServiceTest {
         Assert.assertEquals("LOTR", copies.get(1).getBook().getTitle());
     }
 
-    @Transactional
     @Test(expected = BookCopyNotFoundException.class)
     public void testGetCopyByNonExistingId() {
         //Given & When
@@ -104,7 +98,6 @@ public class BookCopyServiceTest {
         bookCopyService.getBookCopyById(id);
     }
 
-    @Transactional
     @Test
     public void testGetCopiesByNonExistingBookId() {
         //Given & When
@@ -115,7 +108,6 @@ public class BookCopyServiceTest {
         Assert.assertTrue(copies.isEmpty());
     }
 
-    @Transactional
     @Test
     public void testSettingCopyAsRented() {
         //Given
@@ -140,7 +132,6 @@ public class BookCopyServiceTest {
         Assert.assertFalse(received.isAvailableForRent());
     }
 
-    @Transactional
     @Test
     public void testSettingCopyAsReturned() {
         //Given

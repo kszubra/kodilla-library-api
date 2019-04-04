@@ -1,27 +1,30 @@
 package com.kodilla.libraryapi.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.Cascade;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name="RENTS")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "RENTS")
+@Data
 public class Rent {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID")
+    @Column(name = "ID")
     private long id;
 
     @NotNull
@@ -31,24 +34,23 @@ public class Rent {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name="BOOK_COPY_ID")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JoinColumn(name = "BOOK_COPY_ID")
     private BookCopy bookCopy;
 
     @NotNull
-    @Column(name="RENT_DATE")
+    @Column(name = "RENT_DATE")
     private LocalDate rentDate;
 
     @NotNull
-    @Column(name="RETURN_DEADLINE")
+    @Column(name = "RETURN_DEADLINE")
     private LocalDate returnDeadline;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="FINE_ID")
+    @JoinColumn(name = "FINE_ID")
     private Fine fine;
 
     @NotNull
-    @Column(name="IS_RETURNED")
+    @Column(name = "IS_RETURNED")
     private boolean isReturned;
 
     @Override
