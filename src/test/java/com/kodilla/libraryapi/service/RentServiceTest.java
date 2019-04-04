@@ -4,6 +4,7 @@ import com.kodilla.libraryapi.domain.Book;
 import com.kodilla.libraryapi.domain.BookCopy;
 import com.kodilla.libraryapi.domain.Rent;
 import com.kodilla.libraryapi.domain.User;
+import com.kodilla.libraryapi.enumerics.BookCopyStatus;
 import com.kodilla.libraryapi.exceptions.rent.CopyAlreadyRentedException;
 import com.kodilla.libraryapi.exceptions.rent.RentNotFoundException;
 import org.junit.Assert;
@@ -50,7 +51,7 @@ public class RentServiceTest {
         BookCopy testCopy = new BookCopy();
         testCopy.setBook(testBook);
         testCopy.setAvailableForRent(true);
-        testCopy.setStatus("In use");
+        testCopy.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(testCopy);
 
         User testUser = new User();
@@ -94,12 +95,12 @@ public class RentServiceTest {
         BookCopy testCopy = new BookCopy();
         testCopy.setBook(testBook);
         testCopy.setAvailableForRent(true);
-        testCopy.setStatus("In use");
+        testCopy.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(testCopy);
         BookCopy testCopyTwo = new BookCopy();
         testCopyTwo.setBook(testBookTwo);
         testCopyTwo.setAvailableForRent(true);
-        testCopyTwo.setStatus("In use");
+        testCopyTwo.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(testCopyTwo);
 
         User testUser = new User();
@@ -144,7 +145,7 @@ public class RentServiceTest {
         BookCopy testCopy = new BookCopy();
         testCopy.setBook(testBook);
         testCopy.setAvailableForRent(true);
-        testCopy.setStatus("In use");
+        testCopy.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(testCopy);
 
         User testUser = new User();
@@ -195,7 +196,7 @@ public class RentServiceTest {
         BookCopy testCopy = new BookCopy();
         testCopy.setBook(testBook);
         testCopy.setAvailableForRent(true);
-        testCopy.setStatus("In use");
+        testCopy.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(testCopy);
 
         User testUser = new User();

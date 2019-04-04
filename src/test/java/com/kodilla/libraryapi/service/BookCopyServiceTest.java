@@ -2,6 +2,7 @@ package com.kodilla.libraryapi.service;
 
 import com.kodilla.libraryapi.domain.Book;
 import com.kodilla.libraryapi.domain.BookCopy;
+import com.kodilla.libraryapi.enumerics.BookCopyStatus;
 import com.kodilla.libraryapi.exceptions.BookCopyNotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,7 +41,7 @@ public class BookCopyServiceTest {
         BookCopy lotrCopyOne = new BookCopy();
         lotrCopyOne.setBook(testBook);
         lotrCopyOne.setAvailableForRent(true);
-        lotrCopyOne.setStatus("In use");
+        lotrCopyOne.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(lotrCopyOne);
 
         //When
@@ -66,12 +67,12 @@ public class BookCopyServiceTest {
         BookCopy lotrCopyOne = new BookCopy();
         lotrCopyOne.setBook(testBook);
         lotrCopyOne.setAvailableForRent(true);
-        lotrCopyOne.setStatus("In use");
+        lotrCopyOne.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(lotrCopyOne);
         BookCopy lotrCopyTwo = new BookCopy();
         lotrCopyTwo.setBook(testBook);
         lotrCopyTwo.setAvailableForRent(false);
-        lotrCopyTwo.setStatus("Lost");
+        lotrCopyTwo.setStatus(BookCopyStatus.LOST);
         bookCopyService.addBookCopy(lotrCopyTwo);
 
         //When
@@ -79,8 +80,8 @@ public class BookCopyServiceTest {
 
         //Then
         Assert.assertEquals(2, copies.size());
-        Assert.assertEquals("In use", copies.get(0).getStatus());
-        Assert.assertEquals("Lost", copies.get(1).getStatus());
+        Assert.assertEquals("IN USE", copies.get(0).getStatus().toString());
+        Assert.assertEquals("LOST", copies.get(1).getStatus().toString());
         Assert.assertEquals(true, copies.get(0).isAvailableForRent());
         Assert.assertEquals(false, copies.get(1).isAvailableForRent());
         Assert.assertEquals("Tolkien", copies.get(0).getBook().getAuthor());
@@ -120,7 +121,7 @@ public class BookCopyServiceTest {
         BookCopy lotrCopyOne = new BookCopy();
         lotrCopyOne.setBook(testBook);
         lotrCopyOne.setAvailableForRent(true);
-        lotrCopyOne.setStatus("In use");
+        lotrCopyOne.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(lotrCopyOne);
 
         // & When
@@ -144,7 +145,7 @@ public class BookCopyServiceTest {
         BookCopy lotrCopyOne = new BookCopy();
         lotrCopyOne.setBook(testBook);
         lotrCopyOne.setAvailableForRent(false);
-        lotrCopyOne.setStatus("In use");
+        lotrCopyOne.setStatus(BookCopyStatus.IN_USE);
         bookCopyService.addBookCopy(lotrCopyOne);
 
         // & When
