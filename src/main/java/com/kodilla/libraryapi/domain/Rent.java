@@ -1,5 +1,6 @@
 package com.kodilla.libraryapi.domain;
 
+import com.kodilla.libraryapi.custom.validation.RentCode;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -52,6 +53,9 @@ public class Rent {
     @NotNull
     @Column(name = "IS_RETURNED")
     private boolean isReturned;
+
+    @RentCode(value = "rentCode: ", message = "wrong code")
+    private String rentCode;
 
     @Override
     public boolean equals(Object o) {

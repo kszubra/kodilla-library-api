@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.TransactionSystemException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -236,5 +237,87 @@ public class RentServiceTest {
         testRentToFail.setRentDate(LocalDate.now());
         testRentToFail.setReturnDeadline(LocalDate.now().plusDays(30));
         rentService.addRent(testRentToFail);
+    }
+
+    @Test
+    public void testCustomValidationForRentCodePassed() {
+        //Given
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
+        testBook.setAuthor("Tolkien");
+        testBook.setTitle("LOTR");
+        bookService.addBook(testBook);
+
+        BookCopy testCopy = new BookCopy();
+        testCopy.setBook(testBook);
+        testCopy.setAvailableForRent(true);
+        testCopy.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(testCopy);
+
+        User testUser = new User();
+        testUser.setName("John");
+        testUser.setSurname("Rambo");
+        testUser.setHasAdminRights(false);
+        testUser.setPrefferedCurrency("PLN");
+        testUser.setRegistrationDate(LocalDate.now());
+        testUser.setEmailAddress("ala@ala.pl");
+        userService.addUser(testUser);
+
+        Rent testRent = new Rent();
+        testRent.setUser(testUser);
+        testRent.setBookCopy(testCopy);
+        testRent.setRentDate(LocalDate.now());
+        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
+        testRent.setRentCode("rentCode: blablabla");
+        rentService.addRent(testRent);
+
+        //When
+        long id = testRent.getId();
+        Rent result = rentService.getRentById(id);
+
+        //Then
+        Assert.assertEquals(testRent, result);
+
+    }
+
+    @Test(expected = TransactionSystemException.class)
+    public void testCustomValidationForRentCodeFailed() {
+        //Given
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
+        testBook.setAuthor("Tolkien");
+        testBook.setTitle("LOTR");
+        bookService.addBook(testBook);
+
+        BookCopy testCopy = new BookCopy();
+        testCopy.setBook(testBook);
+        testCopy.setAvailableForRent(true);
+        testCopy.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(testCopy);
+
+        User testUser = new User();
+        testUser.setName("John");
+        testUser.setSurname("Rambo");
+        testUser.setHasAdminRights(false);
+        testUser.setPrefferedCurrency("PLN");
+        testUser.setRegistrationDate(LocalDate.now());
+        testUser.setEmailAddress("ala@ala.pl");
+        userService.addUser(testUser);
+
+        Rent testRent = new Rent();
+        testRent.setUser(testUser);
+        testRent.setBookCopy(testCopy);
+        testRent.setRentDate(LocalDate.now());
+        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
+        testRent.setRentCode("blablabla");
+        rentService.addRent(testRent);
+
+        //When
+        long id = testRent.getId();
+        Rent result = rentService.getRentById(id);
+
+        //Then
+        Assert.assertEquals(testRent, result);
+
     }
 }
