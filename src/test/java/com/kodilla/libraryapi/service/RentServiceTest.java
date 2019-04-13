@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,6 +59,7 @@ public class RentServiceTest {
         testUser.setHasAdminRights(false);
         testUser.setPrefferedCurrency("PLN");
         testUser.setRegistrationDate(LocalDate.now());
+        testUser.setEmailAddress("ala@ala.pl");
         userService.addUser(testUser);
 
         Rent testRent = new Rent();
@@ -108,6 +108,7 @@ public class RentServiceTest {
         testUser.setSurname("Rambo");
         testUser.setHasAdminRights(false);
         testUser.setPrefferedCurrency("PLN");
+        testUser.setEmailAddress("ala@ala.pl");
         testUser.setRegistrationDate(LocalDate.now());
         userService.addUser(testUser);
 
@@ -153,6 +154,7 @@ public class RentServiceTest {
         testUser.setSurname("Rambo");
         testUser.setHasAdminRights(false);
         testUser.setPrefferedCurrency("PLN");
+        testUser.setEmailAddress("ala@ala.pl");
         testUser.setRegistrationDate(LocalDate.now());
         userService.addUser(testUser);
 
@@ -204,6 +206,7 @@ public class RentServiceTest {
         testUser.setSurname("Rambo");
         testUser.setHasAdminRights(false);
         testUser.setPrefferedCurrency("PLN");
+        testUser.setEmailAddress("ala@ala.pl");
         testUser.setRegistrationDate(LocalDate.now());
         userService.addUser(testUser);
 
@@ -211,6 +214,7 @@ public class RentServiceTest {
         testUserTwo.setName("John");
         testUserTwo.setSurname("Rambo");
         testUserTwo.setHasAdminRights(false);
+        testUserTwo.setEmailAddress("ala@ala.pl");
         testUserTwo.setPrefferedCurrency("PLN");
         testUserTwo.setRegistrationDate(LocalDate.now());
         userService.addUser(testUserTwo);

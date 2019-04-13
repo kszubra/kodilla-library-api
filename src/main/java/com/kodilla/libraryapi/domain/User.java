@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -43,6 +44,10 @@ public class User {
     @NotNull
     @Column(name="IS_ADMIN")
     private boolean hasAdminRights;
+
+    @NotNull
+    @Pattern(regexp = ".{3,}@.{2,}\\..{2,3}", message = "email format is not proper")
+    private String emailAddress;
 
     @Override
     public boolean equals(Object o) {

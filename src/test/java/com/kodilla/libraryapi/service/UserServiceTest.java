@@ -31,6 +31,7 @@ public class UserServiceTest {
         testUser.setSurname("Rambo");
         testUser.setHasAdminRights(false);
         testUser.setPrefferedCurrency("PLN");
+        testUser.setEmailAddress("ala@ala.pl");
         testUser.setRegistrationDate(LocalDate.now());
 
         //When
