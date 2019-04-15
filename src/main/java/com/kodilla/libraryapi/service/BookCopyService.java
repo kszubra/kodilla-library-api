@@ -19,6 +19,10 @@ public class BookCopyService {
         return bookCopyRepository.save(bookCopy);
     }
 
+    public Long getNumberOfFreeCopiesByBookId(final long id) {
+        return bookCopyRepository.countBookCopiesByBook_IdAndAvailableForRentIsTrue(id);
+    }
+
     public BookCopy getBookCopyById(final long id) {
         return bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
     }

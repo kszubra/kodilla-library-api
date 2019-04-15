@@ -157,4 +157,38 @@ public class BookCopyServiceTest {
         Assert.assertTrue(received.isAvailableForRent());
     }
 
+    @Test
+    public void testGetingNumberOfCopiesByBookId() {
+        //Given
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
+        testBook.setAuthor("Tolkien");
+        testBook.setTitle("LOTR");
+        bookService.addBook(testBook);
+        long bookId = testBook.getId();
+
+        BookCopy lotrCopyOne = new BookCopy();
+        lotrCopyOne.setBook(testBook);
+        lotrCopyOne.setAvailableForRent(false);
+        lotrCopyOne.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(lotrCopyOne);
+        BookCopy lotrCopyTwo = new BookCopy();
+        lotrCopyTwo.setBook(testBook);
+        lotrCopyTwo.setAvailableForRent(false);
+        lotrCopyTwo.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(lotrCopyTwo);
+        BookCopy lotrCopyThree = new BookCopy();
+        lotrCopyThree.setBook(testBook);
+        lotrCopyThree.setAvailableForRent(true);
+        lotrCopyThree.setStatus(BookCopyStatus.IN_RENOVATION);
+        bookCopyService.addBookCopy(lotrCopyThree);
+
+        //When
+        long result = bookCopyService.getNumberOfFreeCopiesByBookId(bookId);
+
+        //Then
+        Assert.assertEquals(1, result);
+
+    }
+
 }

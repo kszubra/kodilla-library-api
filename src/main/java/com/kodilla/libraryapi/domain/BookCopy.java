@@ -1,7 +1,11 @@
 package com.kodilla.libraryapi.domain;
 
 import com.kodilla.libraryapi.enumerics.BookCopyStatus;
+import com.kodilla.libraryapi.exceptions.BookCopyStatusDoesNotExistException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,6 +15,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "BOOK_COPIES")
 @Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookCopy {
 
     @Id
@@ -31,10 +38,31 @@ public class BookCopy {
 
     @NotNull
     @Column(name = "AVAILABLE_FOR_RENT")
-    private boolean isAvailableForRent;
+    private boolean availableForRent;
 
     @OneToMany(mappedBy = "bookCopy")
     private List<Rent> rents;
+
+    public void setStatusByString(String status) {
+        status.toLowerCase();
+
+        switch(status) {
+            case "in use":
+                this.status = BookCopyStatus.IN_USE;
+                break;
+            case "in renovation":
+                this.status = BookCopyStatus.IN_RENOVATION;
+                break;
+            case "lost":
+                this.status = BookCopyStatus.LOST;
+                break;
+            case "destroyed":
+                this.status = BookCopyStatus.DESTROYED;
+                break;
+            default:
+                throw new BookCopyStatusDoesNotExistException();
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -42,14 +70,14 @@ public class BookCopy {
         if (o == null || getClass() != o.getClass()) return false;
         BookCopy bookCopy = (BookCopy) o;
         return id == bookCopy.id &&
-                isAvailableForRent == bookCopy.isAvailableForRent &&
+                availableForRent == bookCopy.availableForRent &&
                 Objects.equals(book, bookCopy.book) &&
                 Objects.equals(status, bookCopy.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, status, isAvailableForRent);
+        return Objects.hash(id, book, status, availableForRent);
     }
 }
 
