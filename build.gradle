@@ -28,6 +28,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     
+    //EMAIL
+    compile('org.springframework.boot:spring-boot-starter-mail:2.1.3.RELEASE')
+    
     //GOOGLE GSON
     compile('com.google.code.gson:gson:2.8.2')
     
