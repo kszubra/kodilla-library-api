@@ -1,8 +1,10 @@
 package com.kodilla.libraryapi.domain;
 
 import com.kodilla.libraryapi.custom.validation.RentCode;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +24,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "RENTS")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder(toBuilder = true)
 public class Rent {
     @Id

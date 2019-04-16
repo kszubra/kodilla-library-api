@@ -26,7 +26,7 @@ public class BookCopyController {
         bookCopyService.addBookCopy(bookCopyMapper.mapToBookCopy(dto));
     }
 
-    @PutMapping("updateBookCopy")
+    @PutMapping("updateCopyStatus")
     @Transactional
     public void updateBookCopyStatus(@RequestParam("id") long id, @RequestParam("status") String status) {
         BookCopy copy = bookCopyService.getBookCopyById(id);
@@ -34,7 +34,7 @@ public class BookCopyController {
     }
 
     @GetMapping("freeCopies")
-    public long getNumberOfFreeCopies(@RequestParam("bookId") long bookId) {
+    public long getNumberOfFreeCopies(@RequestParam("id") long bookId) {
         return bookCopyService.getNumberOfFreeCopiesByBookId(bookId);
     }
 }

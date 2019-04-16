@@ -10,7 +10,7 @@ public class BookMapper {
     public Book mapToBook(BookDto dto) {
         return Book.builder()
                 .title( dto.getTitle() )
-                .author( dto.getTitle() )
+                .author( dto.getAuthor() )
                 .publicationDate( dto.getPublicationDate() )
                 .build();
     }

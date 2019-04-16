@@ -39,7 +39,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     
     //RUNTIME DATABASE
-    runtimeOnly 'org.postgresql:postgresql'
+    //runtimeOnly 'org.postgresql:postgresql'
+    
+    //TRY DATABASE
+    compile('mysql:mysql-connector-java')
     
     //TEST DATABASE
     testRuntime('com.h2database:h2')
