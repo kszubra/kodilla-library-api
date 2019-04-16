@@ -1,6 +1,5 @@
 package com.kodilla.libraryapi.domain.dto;
 
-import com.kodilla.libraryapi.domain.Book;
 import com.kodilla.libraryapi.domain.Rent;
 import com.kodilla.libraryapi.enumerics.BookCopyStatus;
 import lombok.Builder;
@@ -13,7 +12,7 @@ import java.util.List;
 public class BookCopyDto {
 
     private long id;
-    private Book book;
+    private long bookId;
     private BookCopyStatus status;
     private boolean isAvailableForRent;
     private List<Rent> rents;

@@ -1,11 +1,13 @@
 package com.kodilla.libraryapi.controller;
 
+import com.kodilla.libraryapi.domain.dto.RentDto;
 import com.kodilla.libraryapi.mapper.RentMapper;
 import com.kodilla.libraryapi.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/rents")
 public class RentController {
@@ -17,4 +19,17 @@ public class RentController {
         this.rentService = rentService;
         this.rentMapper = rentMapper;
     }
+
+    @Transactional
+    @PostMapping("newRent")
+    public void newRent(@RequestBody RentDto dto) {
+        rentService.addRent( rentMapper.mapToRent(dto) );
+    }
+
+    @Transactional
+    @PutMapping("return")
+    public void returnRent(@RequestParam("id") long rentId) {
+        rentService.setRentAsReturned(rentId);
+    }
+
 }

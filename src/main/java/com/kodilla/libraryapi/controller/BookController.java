@@ -4,11 +4,9 @@ import com.kodilla.libraryapi.domain.dto.BookDto;
 import com.kodilla.libraryapi.mapper.BookMapper;
 import com.kodilla.libraryapi.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/books")
 public class BookController {

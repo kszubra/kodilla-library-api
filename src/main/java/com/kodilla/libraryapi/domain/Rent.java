@@ -1,6 +1,7 @@
 package com.kodilla.libraryapi.domain;
 
 import com.kodilla.libraryapi.custom.validation.RentCode;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "RENTS")
 @Data
+@Builder(toBuilder = true)
 public class Rent {
     @Id
     @NotNull
@@ -54,7 +56,7 @@ public class Rent {
     @Column(name = "IS_RETURNED")
     private boolean isReturned;
 
-    @RentCode(value = "rentCode: ", message = "wrong code")
+    @RentCode(value = "rentCode: ", message = "code should start with \"rentCode: \" ")
     private String rentCode;
 
     @Override
