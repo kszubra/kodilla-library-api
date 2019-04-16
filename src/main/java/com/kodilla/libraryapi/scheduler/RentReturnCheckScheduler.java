@@ -21,7 +21,7 @@ public class RentReturnCheckScheduler {
     @Autowired
     private FineService fineService;
 
-    @Scheduled(cron = "0 1 0 * * *") //everyday 1 min after midnight?
+    @Scheduled(cron = "0 1 0 * * *") //everyday 1 min after midnight
     public void updateFines() {
 
         List<Rent> outdatedRents = rentService.getAllRents().stream()
@@ -51,17 +51,11 @@ public class RentReturnCheckScheduler {
     }
 
     private boolean isOutdated(final Rent rent) {
-        LocalDate today = LocalDate.now();
-        LocalDate deadline = rent.getReturnDeadline();
-
-        return today.isAfter(deadline);
+        return LocalDate.now().isAfter( rent.getReturnDeadline() );
     }
 
     private double calculateFine(final Rent rent) {
-        LocalDate today = LocalDate.now();
-        LocalDate deadline = rent.getReturnDeadline();
-        long daysOfDelay = Duration.between(deadline, today).toDays();
-
+        long daysOfDelay = Duration.between( rent.getReturnDeadline(), LocalDate.now() ).toDays();
         return daysOfDelay*Fine.FINE_PER_DAY;
     }
 }
