@@ -45,10 +45,10 @@ dependencies {
     //runtimeOnly 'org.postgresql:postgresql'
     
     //TRY DATABASE
-    compile('mysql:mysql-connector-java')
+    runtimeOnly 'mysql:mysql-connector-java'
     
     //TEST DATABASE
-    testRuntime('com.h2database:h2')
+    //testRuntime('com.h2database:h2')
     
     //SWAGGER
     compile('io.springfox:springfox-swagger2:2.7.0')
