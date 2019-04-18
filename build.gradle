@@ -29,7 +29,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     
     //EMAIL
-    compile('org.springframework.boot:spring-boot-starter-mail:2.1.3.RELEASE')
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     
     //GOOGLE GSON
     compile('com.google.code.gson:gson:2.8.2')
@@ -48,7 +48,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     
     //TEST DATABASE
-    //testRuntime('com.h2database:h2')
+    testRuntime('com.h2database:h2')
     
     //SWAGGER
     compile('io.springfox:springfox-swagger2:2.7.0')
