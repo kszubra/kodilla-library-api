@@ -1,6 +1,7 @@
 package com.kodilla.libraryapi.nbp;
 
 import com.kodilla.libraryapi.domain.dto.CurrencyDto;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,10 @@ import java.net.URI;
 import java.util.Optional;
 
 @Component
+@AllArgsConstructor
 public class NbpClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(NbpClient.class);
-
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public CurrencyDto getCurrency(String currencyCode) {
         URI url = UriComponentsBuilder.fromHttpUrl("http://api.nbp.pl/api/exchangerates/rates/A/" + currencyCode)

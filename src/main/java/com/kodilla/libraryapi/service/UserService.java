@@ -3,13 +3,14 @@ package com.kodilla.libraryapi.service;
 import com.kodilla.libraryapi.domain.User;
 import com.kodilla.libraryapi.exceptions.UserNotFoundException;
 import com.kodilla.libraryapi.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public User addUser(final User user) {
         return userRepository.save(user);

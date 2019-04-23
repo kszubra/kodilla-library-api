@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RentCode {
 
-    public String value() default "defaultValue";
+    public String[] value();
     public String message() default "wrong";
 
     // mandatory to avoid ConstraintDefinitionException: HV000074

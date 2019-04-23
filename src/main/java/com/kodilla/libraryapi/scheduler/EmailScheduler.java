@@ -4,6 +4,7 @@ import com.kodilla.libraryapi.domain.Mail;
 import com.kodilla.libraryapi.domain.Rent;
 import com.kodilla.libraryapi.service.RentService;
 import com.kodilla.libraryapi.service.SimpleEmailService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,11 +12,10 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
+@AllArgsConstructor
 public class EmailScheduler {
-    @Autowired
-    private SimpleEmailService simpleEmailService;
-    @Autowired
-    private RentService rentService;
+    private final SimpleEmailService simpleEmailService;
+    private final RentService rentService;
 
     private static final String DEADLINE_REMIND_SUBJECT = "Book return deadline";
     private static final String DEADLINE_REMIND_MESSAGE = "You receive this email because one of your rented books is due tomorrow. Please return it before deadline";

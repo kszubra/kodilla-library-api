@@ -6,20 +6,20 @@ import com.kodilla.libraryapi.exceptions.rent.CopyAlreadyRentedException;
 import com.kodilla.libraryapi.exceptions.rent.RentNotFoundException;
 import com.kodilla.libraryapi.repository.BookCopyRepository;
 import com.kodilla.libraryapi.repository.RentRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class RentService {
-    @Autowired
-    private RentRepository rentRepository;
-    @Autowired
-    private BookCopyService bookCopyService;
-    @Autowired
-    private BookCopyRepository bookCopyRepository;
+    private final RentRepository rentRepository;
+    private final BookCopyService bookCopyService;
+    private final BookCopyRepository bookCopyRepository;
 
     private boolean notAvailable(BookCopy copy) {
         return !copy.isAvailableForRent();
@@ -52,6 +52,10 @@ public class RentService {
         Rent rent = rentRepository.findById(id).orElseThrow(RentNotFoundException::new);
         rent.setReturned(true);
         bookCopyService.setAsReturned(rent.getBookCopy().getId());
+    }
+
+    public List<Rent> getUnpaidAndOutdated() {
+        return rentRepository.findAllByReturnDeadlineBeforeAndReturnedIsFalse(LocalDate.now());
     }
 
     public void deleteAllRents() {

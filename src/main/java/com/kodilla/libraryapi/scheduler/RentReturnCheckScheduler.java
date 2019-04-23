@@ -4,6 +4,7 @@ import com.kodilla.libraryapi.domain.Fine;
 import com.kodilla.libraryapi.domain.Rent;
 import com.kodilla.libraryapi.service.FineService;
 import com.kodilla.libraryapi.service.RentService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,20 +15,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class RentReturnCheckScheduler {
-    @Autowired
-    private RentService rentService;
-
-    @Autowired
-    private FineService fineService;
+    private final RentService rentService;
+    private final FineService fineService;
 
     @Scheduled(cron = "0 1 0 * * *") //everyday 1 min after midnight
     public void updateFines() {
 
-        List<Rent> outdatedRents = rentService.getAllRents().stream()
-                .filter(e -> isOutdated(e))
-                .filter(e -> !e.isReturned() )
-                .collect(Collectors.toList());
+        List<Rent> outdatedRents = rentService.getUnpaidAndOutdated();
 
         for (Rent rent: outdatedRents) {
 
@@ -39,22 +35,16 @@ public class RentReturnCheckScheduler {
                 fineService.addFine(fine);
 
                 rent.setFine(fine);
-                rentService.addRent(rent);
 
-            } else if ( rent.getFine() != null ) {
+            } else {
                 rent.getFine().setValue( calculateFine(rent) );
-
-                rentService.addRent(rent);
             }
+            rentService.addRent(rent);
         }
 
     }
 
-    private boolean isOutdated(final Rent rent) {
-        return LocalDate.now().isAfter( rent.getReturnDeadline() );
-    }
-
-    private double calculateFine(final Rent rent) {
+    private static double calculateFine(final Rent rent) {
         long daysOfDelay = Duration.between( rent.getReturnDeadline(), LocalDate.now() ).toDays();
         return daysOfDelay*Fine.FINE_PER_DAY;
     }

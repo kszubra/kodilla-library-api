@@ -3,6 +3,7 @@ package com.kodilla.libraryapi.service;
 import com.kodilla.libraryapi.domain.BookCopy;
 import com.kodilla.libraryapi.exceptions.BookCopyNotFoundException;
 import com.kodilla.libraryapi.repository.BookCopyRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class BookCopyService {
-    @Autowired
-    private BookCopyRepository bookCopyRepository;
+    private final BookCopyRepository bookCopyRepository;
 
     public BookCopy addBookCopy(final BookCopy bookCopy) {
         return bookCopyRepository.save(bookCopy);

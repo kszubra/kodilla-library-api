@@ -3,13 +3,14 @@ package com.kodilla.libraryapi.service;
 import com.kodilla.libraryapi.domain.Fine;
 import com.kodilla.libraryapi.exceptions.FineNotFoundException;
 import com.kodilla.libraryapi.repository.FineRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class FineService {
-    @Autowired
-    private FineRepository fineRepository;
+    private final FineRepository fineRepository;
 
     public Fine addFine(final Fine fine) {
         return fineRepository.save(fine);

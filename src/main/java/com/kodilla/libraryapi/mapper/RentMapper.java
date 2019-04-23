@@ -5,19 +5,15 @@ import com.kodilla.libraryapi.domain.dto.RentDto;
 import com.kodilla.libraryapi.service.BookCopyService;
 import com.kodilla.libraryapi.service.FineService;
 import com.kodilla.libraryapi.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class RentMapper {
     private final UserService userService;
     private final BookCopyService bookCopyService;
     private final FineService fineService;
-
-    public RentMapper(final UserService userService, final BookCopyService bookCopyService, final FineService fineService) {
-        this.userService = userService;
-        this.bookCopyService = bookCopyService;
-        this.fineService = fineService;
-    }
 
     public Rent mapToRent(final RentDto dto) {
         return Rent.builder()
@@ -30,7 +26,7 @@ public class RentMapper {
                 .fine(
                         (dto.getFineId() > 0)? fineService.getFineById( dto.getFineId() ) : null
                 )
-                .isReturned( dto.isReturned() )
+                .returned( dto.isReturned() )
                 .build();
     }
 }

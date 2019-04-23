@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 public class RentCodeConstraintValidator implements ConstraintValidator<RentCode, String> {
 
-    private String codePrefix;
+    private String[] codePrefix;
 
     @Override
     public void initialize(RentCode code) {
@@ -16,7 +16,7 @@ public class RentCodeConstraintValidator implements ConstraintValidator<RentCode
     public boolean isValid(String code, ConstraintValidatorContext validatorContext) {
 
         if( code != null ) {
-            return code.startsWith(codePrefix);
+            return code.startsWith(codePrefix[0]);
         } else {
             return true;
         }

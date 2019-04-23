@@ -4,6 +4,7 @@ import com.kodilla.libraryapi.domain.Rent;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +19,7 @@ public interface RentRepository extends CrudRepository<Rent, Long> {
 
     @Override
     Optional<Rent> findById(Long id);
+
+    List<Rent> findAllByReturnDeadlineBeforeAndReturnedIsFalse(LocalDate current);
 
 }

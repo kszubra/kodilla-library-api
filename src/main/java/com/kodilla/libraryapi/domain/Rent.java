@@ -58,9 +58,9 @@ public class Rent {
 
     @NotNull
     @Column(name = "IS_RETURNED")
-    private boolean isReturned;
+    private boolean returned;
 
-    @RentCode(value = "rentCode: ", message = "code should start with \"rentCode: \" ")
+    @RentCode(value = {"rentCode: "}, message = "code should start with \"rentCode: \" ")
     private String rentCode;
 
     @Override
@@ -69,7 +69,7 @@ public class Rent {
         if (o == null || getClass() != o.getClass()) return false;
         Rent rent = (Rent) o;
         return id == rent.id &&
-                isReturned == rent.isReturned &&
+                returned == rent.returned &&
                 Objects.equals(user, rent.user) &&
                 Objects.equals(bookCopy, rent.bookCopy) &&
                 Objects.equals(rentDate, rent.rentDate) &&
@@ -79,6 +79,6 @@ public class Rent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, bookCopy, rentDate, returnDeadline, fine, isReturned);
+        return Objects.hash(id, user, bookCopy, rentDate, returnDeadline, fine, returned);
     }
 }
