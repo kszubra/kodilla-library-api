@@ -318,6 +318,80 @@ public class RentServiceTest {
 
         //Then
         Assert.assertEquals(testRent, result);
+    }
 
+    @Test
+    public void testGettingUnpaidAndOutdatedRents() {
+        // Given
+        Book testBook = new Book();
+        testBook.setPublicationDate(LocalDate.now());
+        testBook.setAuthor("Tolkien");
+        testBook.setTitle("LOTR");
+        bookService.addBook(testBook);
+
+        BookCopy testCopy = new BookCopy();
+        testCopy.setBook(testBook);
+        testCopy.setAvailableForRent(true);
+        testCopy.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(testCopy);
+        BookCopy testCopyTwo = new BookCopy();
+        testCopyTwo.setBook(testBook);
+        testCopyTwo.setAvailableForRent(true);
+        testCopyTwo.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(testCopyTwo);
+        BookCopy testCopyThree = new BookCopy();
+        testCopyThree.setBook(testBook);
+        testCopyThree.setAvailableForRent(true);
+        testCopyThree.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(testCopyThree);
+        BookCopy testCopyFour = new BookCopy();
+        testCopyFour.setBook(testBook);
+        testCopyFour.setAvailableForRent(true);
+        testCopyFour.setStatus(BookCopyStatus.IN_USE);
+        bookCopyService.addBookCopy(testCopyFour);
+
+        User testUser = new User();
+        testUser.setName("John");
+        testUser.setSurname("Rambo");
+        testUser.setHasAdminRights(false);
+        testUser.setPrefferedCurrency("PLN");
+        testUser.setEmailAddress("ala@ala.pl");
+        testUser.setRegistrationDate(LocalDate.now());
+        userService.addUser(testUser);
+
+        Rent testRent = new Rent(); //not outdated
+        testRent.setUser(testUser);
+        testRent.setBookCopy(testCopy);
+        testRent.setRentDate(LocalDate.now());
+        testRent.setReturnDeadline(LocalDate.now().plusDays(30));
+        rentService.addRent(testRent);
+        Rent testRentTwo = new Rent(); //outdated
+        testRentTwo.setUser(testUser);
+        testRentTwo.setBookCopy(testCopyTwo);
+        testRentTwo.setRentDate(LocalDate.of(2018, 11, 12));
+        testRentTwo.setReturnDeadline(LocalDate.of(2019, 1, 12));
+        rentService.addRent(testRentTwo);
+        Rent testRentThree = new Rent(); //outdated
+        testRentThree.setUser(testUser);
+        testRentThree.setBookCopy(testCopyThree);
+        testRentThree.setRentDate(LocalDate.of(2018, 11, 12));
+        testRentThree.setReturnDeadline(LocalDate.of(2019, 1, 12));
+        rentService.addRent(testRentThree);
+        Rent testRentFour = new Rent(); //outdated but returned
+        testRentFour.setUser(testUser);
+        testRentFour.setBookCopy(testCopyFour);
+        testRentFour.setRentDate(LocalDate.of(2018, 11, 12));
+        testRentFour.setReturnDeadline(LocalDate.of(2019, 1, 12));
+        testRentFour.setReturned(true);
+        rentService.addRent(testRentFour);
+
+        //When
+        List<Rent> outdated = rentService.getUnpaidAndOutdated();
+        long outdatedNumber = outdated.size();
+
+        //Then
+        Assert.assertEquals(2, outdatedNumber);
+        Assert.assertEquals(testRentTwo, outdated.get(0));
+        Assert.assertEquals(testRentThree, outdated.get(1));
     }
 }
