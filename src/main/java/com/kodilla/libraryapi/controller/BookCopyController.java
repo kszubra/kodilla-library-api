@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/bookCopies")
+@RequestMapping("/library")
 @AllArgsConstructor
 public class BookCopyController {
     private final BookCopyService bookCopyService;
     private final BookCopyMapper bookCopyMapper;
 
-    @PostMapping("addBookCopy")
+    @PostMapping("copies")
     public void addBookCopy(@RequestBody BookCopyDto dto) {
         bookCopyService.addBookCopy(bookCopyMapper.mapToBookCopy(dto));
     }
 
-    @PutMapping("updateCopyStatus")
+    @PutMapping("copies")
     @Transactional
     public void updateBookCopyStatus(@RequestParam("id") long id, @RequestParam("status") String status) {
         BookCopy copy = bookCopyService.getBookCopyById(id);
         copy.setStatusByString(status);
     }
 
-    @GetMapping("freeCopies")
-    public long getNumberOfFreeCopies(@RequestParam("id") long bookId) {
+    @GetMapping("copies/{id}")
+    public long getNumberOfFreeCopies(@PathVariable("id") long bookId) {
         return bookCopyService.getNumberOfFreeCopiesByBookId(bookId);
     }
 }

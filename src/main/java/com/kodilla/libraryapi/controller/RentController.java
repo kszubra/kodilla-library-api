@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/rents")
+@RequestMapping("/library")
 @AllArgsConstructor
 public class RentController {
     private final RentService rentService;
     private final RentMapper rentMapper;
 
     @Transactional
-    @PostMapping("newRent")
+    @PostMapping("rents")
     public void newRent(@RequestBody RentDto dto) {
         rentService.addRent( rentMapper.mapToRent(dto) );
     }
 
     @Transactional
-    @PutMapping("return")
-    public void returnRent(@RequestParam("id") long rentId) {
+    @PutMapping("rents/{id}")
+    public void returnRent(@PathVariable("id") long rentId) {
         rentService.setRentAsReturned(rentId);
     }
 

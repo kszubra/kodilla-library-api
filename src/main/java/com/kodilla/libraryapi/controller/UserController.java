@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/library")
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-
-    @PostMapping("addUser")
+    @PostMapping("users")
     public void addUser(@RequestBody UserDto dto) {
         userService.addUser(userMapper.mapToUser(dto));
     }

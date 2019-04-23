@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/library")
 @AllArgsConstructor
 public class BookController {
     private final BookMapper bookMapper;
     private final BookService bookService;
 
-    @PostMapping("addBook")
+    @PostMapping("books")
     public void addBook(@RequestBody BookDto dto) {
         bookService.addBook(bookMapper.mapToBook(dto));
     }
