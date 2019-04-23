@@ -49,15 +49,19 @@ public class BookCopy {
         switch(status) {
             case "in use":
                 this.status = BookCopyStatus.IN_USE;
+                this.availableForRent=true;
                 break;
             case "in renovation":
                 this.status = BookCopyStatus.IN_RENOVATION;
+                this.availableForRent = false;
                 break;
             case "lost":
                 this.status = BookCopyStatus.LOST;
+                this.availableForRent = false;
                 break;
             case "destroyed":
                 this.status = BookCopyStatus.DESTROYED;
+                this.availableForRent = false;
                 break;
             default:
                 throw new BookCopyStatusDoesNotExistException();

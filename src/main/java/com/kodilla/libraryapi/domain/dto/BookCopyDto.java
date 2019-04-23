@@ -15,6 +15,17 @@ public class BookCopyDto {
     private long id;
     private long bookId;
     private String status;
-    private boolean isAvailableForRent;
+    private boolean availableForRent;
     private List<Rent> rents;
+
+    @Override
+    public String toString() {
+        return "BookCopyDto{" +
+                "id=" + id +
+                ", bookId=" + bookId +
+                ", status='" + status + '\'' +
+                ", isAvailableForRent=" + availableForRent +
+                ", rents=" + rents +
+                '}';
+    }
 }
