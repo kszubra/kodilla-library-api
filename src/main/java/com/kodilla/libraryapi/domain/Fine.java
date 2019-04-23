@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="FINES")
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fine {
-    public final static double FINE_PER_DAY = 1.50;
+    public final static BigDecimal FINE_PER_DAY = BigDecimal.valueOf(1.50);
 
     @Id
     @NotNull

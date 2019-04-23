@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,7 +32,7 @@ public class RentReturnCheckScheduler {
                 Fine fine = new Fine();
                 fine.setPaid(false);
                 fine.setUser( rent.getUser() );
-                fine.setValue(Fine.FINE_PER_DAY);
+                fine.setValue(Fine.FINE_PER_DAY.doubleValue());
                 fineService.addFine(fine);
 
                 rent.setFine(fine);
@@ -46,6 +47,6 @@ public class RentReturnCheckScheduler {
 
     private static double calculateFine(final Rent rent) {
         long daysOfDelay = Duration.between( rent.getReturnDeadline(), LocalDate.now() ).toDays();
-        return daysOfDelay*Fine.FINE_PER_DAY;
+        return Fine.FINE_PER_DAY.multiply(BigDecimal.valueOf(daysOfDelay)).setScale(2, BigDecimal.ROUND_HALF_EVEN).doubleValue();
     }
 }
