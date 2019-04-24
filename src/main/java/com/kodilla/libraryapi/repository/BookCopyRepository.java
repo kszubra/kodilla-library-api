@@ -18,4 +18,6 @@ public interface BookCopyRepository extends CrudRepository<BookCopy, Long> {
     List<BookCopy> findAll();
 
     Long countBookCopiesByBook_IdAndAvailableForRentIsTrue(long id);
+
+    List<BookCopy> findBookCopiesByBook_Id(long id);
 }

@@ -35,9 +35,7 @@ public class BookCopyService {
      * @return
      */
     public List<BookCopy> getCopiesByBookId(final long id) {
-        return bookCopyRepository.findAll().stream()
-                .filter(e -> e.getBook().getId() == id)
-                .collect(Collectors.toList());
+        return bookCopyRepository.findBookCopiesByBook_Id(id);
     }
 
     @Transactional
