@@ -5,18 +5,17 @@ import com.kodilla.libraryapi.domain.dto.BookCopyDto;
 import com.kodilla.libraryapi.enumerics.BookCopyStatus;
 import com.kodilla.libraryapi.service.BookService;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class BookCopyMapper {
     private final BookService bookService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(BookCopyMapper.class);
 
     public BookCopy mapToBookCopy(BookCopyDto dto) {
-        LOGGER.info(dto.toString());
+        log.info(dto.toString());
 
         return BookCopy.builder()
                 .book( bookService.getBookById( dto.getBookId() ) )

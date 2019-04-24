@@ -2,9 +2,7 @@ package com.kodilla.libraryapi.nbp;
 
 import com.kodilla.libraryapi.domain.dto.CurrencyDto;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -15,8 +13,8 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class NbpClient {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NbpClient.class);
     private final RestTemplate restTemplate;
 
     public CurrencyDto getCurrency(String currencyCode) {
@@ -28,7 +26,7 @@ public class NbpClient {
             CurrencyDto response = restTemplate.getForObject(url, CurrencyDto.class);
             return Optional.ofNullable(response).orElse(new CurrencyDto());
         } catch(RestClientException e) {
-            LOGGER.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             return new CurrencyDto();
         }
     }
