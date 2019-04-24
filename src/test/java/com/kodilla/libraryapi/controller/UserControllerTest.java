@@ -1,7 +1,6 @@
 package com.kodilla.libraryapi.controller;
 
 import com.google.gson.Gson;
-import com.kodilla.libraryapi.domain.Currency;
 import com.kodilla.libraryapi.domain.User;
 import com.kodilla.libraryapi.domain.dto.UserDto;
 import com.kodilla.libraryapi.mapper.UserMapper;
