@@ -44,7 +44,7 @@ public class BookCopy {
     private List<Rent> rents;
 
     public void setStatusByString(String status) {
-        status.toLowerCase();
+        status = status.toLowerCase();
 
         switch(status) {
             case "in use":
