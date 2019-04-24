@@ -1,6 +1,7 @@
 package com.kodilla.libraryapi.nbp;
 
 import com.kodilla.libraryapi.domain.Currency;
+import com.kodilla.libraryapi.enumerics.CurrencyEnum;
 import com.kodilla.libraryapi.mapper.CurrencyMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,19 @@ public class NbpFacade {
     private final CurrencyMapper currencyMapper;
 
     public double getUSDRate() {
-        return currencyMapper.mapToCurrency(nbpClient.getCurrency(Currency.CURRENCY_CODE_US_DOLLAR)).getValue();
+        return currencyMapper.mapToCurrency(nbpClient.getCurrency(CurrencyEnum.USD.toString())).getValue();
     }
 
     public double getCADRate() {
-        return currencyMapper.mapToCurrency(nbpClient.getCurrency(Currency.CURRENCY_CODE_CANADIAN_DOLLAR)).getValue();
+        return currencyMapper.mapToCurrency(nbpClient.getCurrency(CurrencyEnum.CAD.toString())).getValue();
     }
 
     public double getGBPRate() {
-        return currencyMapper.mapToCurrency(nbpClient.getCurrency(Currency.CURRENCY_CODE_GREAT_BRITAIN_POUND)).getValue();
+        return currencyMapper.mapToCurrency(nbpClient.getCurrency(CurrencyEnum.GBP.toString())).getValue();
     }
 
     public double getEURRate() {
-        return currencyMapper.mapToCurrency(nbpClient.getCurrency(Currency.CURRENCY_CODE_EURO)).getValue();
+        return currencyMapper.mapToCurrency(nbpClient.getCurrency(CurrencyEnum.EUR.toString())).getValue();
     }
 
 }
