@@ -1,10 +1,14 @@
 package com.kodilla.libraryapi.domain.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
 public class RentDto {
 
     private long id;
@@ -13,6 +17,6 @@ public class RentDto {
     private LocalDate rentDate;
     private LocalDate returnDeadline;
     private long fineId;
-    private boolean isReturned;
+    private boolean returned;
     private String rentCode;
 }

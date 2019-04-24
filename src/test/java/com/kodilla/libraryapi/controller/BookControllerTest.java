@@ -36,25 +36,26 @@ public class BookControllerTest {
     public void testAddBook() throws Exception {
         // Given
         Book book = Book.builder()
-                        .id(1L)
+                        .id(1)
                         .author("Someone")
                         .title("Fancy title")
                         .publicationDate(LocalDate.now())
                         .build();
         BookDto bookDto = BookDto.builder()
-                        .id(1L)
+                        .id(1)
                         .author("Someone")
                         .title("Fancy title")
                         .publicationDate(LocalDate.now())
                         .build();
 
         when(bookMapper.mapToBook(bookDto)).thenReturn(book);
+        when(bookService.addBook(book)).thenReturn(book);
+        when(bookService.getBookById(1)).thenReturn(book);
         String jsonContent = gson.toJson(bookDto);
 
         // When & Then
-        mockMvc.perform(post("/library/books")
+        mockMvc.perform(post("/library/books").contentType(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk());
 
