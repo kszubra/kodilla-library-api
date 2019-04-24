@@ -40,13 +40,13 @@ public class BookCopyService {
 
     @Transactional
     public void setAsRented(final long id) {
-        BookCopy copy = bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
+        BookCopy copy = this.getBookCopyById(id);
         copy.setAvailableForRent(false);
     }
 
     @Transactional
     public void setAsReturned(final long id) {
-        BookCopy copy = bookCopyRepository.findById(id).orElseThrow(BookCopyNotFoundException::new);
+        BookCopy copy = this.getBookCopyById(id);
         copy.setAvailableForRent(true);
     }
 
