@@ -54,7 +54,7 @@ public class BookControllerTest {
         String jsonContent = gson.toJson(bookDto);
 
         // When & Then
-        mockMvc.perform(post("/library/books").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/books").contentType(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().isOk());

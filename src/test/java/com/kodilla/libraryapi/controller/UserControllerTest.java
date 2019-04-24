@@ -60,7 +60,7 @@ public class UserControllerTest {
         String jsonContent = gson.toJson(dto);
 
         // When & Then
-        mockMvc.perform(post("/library/users").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().isOk());

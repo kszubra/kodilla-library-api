@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/library")
+@RequestMapping
 @AllArgsConstructor
 public class BookController {
     private final BookMapper bookMapper;

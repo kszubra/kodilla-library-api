@@ -83,7 +83,7 @@ public class BookCopyControllerTest {
         String jsonContent = gson.toJson(copyDto);
 
         // When & Then
-        mockMvc.perform(post("/library/copies").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/copies").contentType(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().isOk());
@@ -129,7 +129,7 @@ public class BookCopyControllerTest {
         String jsonContent = gson.toJson(copyDto);
 
         // When & Then
-        mockMvc.perform(put("/library/copies?id=2&status=destroyed").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/copies?id=2&status=destroyed").contentType(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().isOk());
@@ -191,7 +191,7 @@ public class BookCopyControllerTest {
         when(bookCopyService.getNumberOfFreeCopiesByBookId(bookId)).thenReturn(1L);
 
         // When & Then
-        mockMvc.perform(get("/library/copies/" + bookId))
+        mockMvc.perform(get("/copies/" + bookId))
                 .andExpect(jsonPath("$", is(1)))
                 .andExpect(status().isOk());
         verify(bookCopyService, times(1)).getNumberOfFreeCopiesByBookId(bookId);

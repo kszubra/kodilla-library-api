@@ -145,7 +145,7 @@ public class RentControllerTest {
         String jsonContent = gson.toJson(rentDto);
 
         // When & Then
-        mockMvc.perform(post("/library/rents").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/rents").contentType(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().isOk());
@@ -239,7 +239,7 @@ public class RentControllerTest {
         String jsonContent = gson.toJson(rentDto);
 
         // When & Then
-        mockMvc.perform(put("/library/rents/4").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/rents/4").contentType(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().isOk());
