@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -24,6 +25,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Transactional
     public void testGettingUserById() {
         //Given
         User testUser = new User();
@@ -44,6 +46,7 @@ public class UserServiceTest {
     }
 
     @Test(expected = UserNotFoundException.class)
+    @Transactional
     public void testGettingUserByIdException() {
         //Given
         long userId = 1L;
