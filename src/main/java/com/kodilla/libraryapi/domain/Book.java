@@ -22,6 +22,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
+@EqualsAndHashCode
 public class Book {
 
     @Id
@@ -41,20 +42,4 @@ public class Book {
     @NotNull
     @Column(name="PUBLICATION_DATE")
     private LocalDate publicationDate;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return id == book.id &&
-                Objects.equals(title, book.title) &&
-                Objects.equals(author, book.author) &&
-                Objects.equals(publicationDate, book.publicationDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, author, publicationDate);
-    }
 }
